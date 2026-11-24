@@ -20,6 +20,8 @@
  * @version    $Id $
  */
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +29,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Uri
  */
+#[Group('Zend_Uri')]
 class Zend_UriTest extends PHPUnit\Framework\TestCase
 {
     protected $notices;
@@ -84,9 +86,9 @@ class Zend_UriTest extends PHPUnit\Framework\TestCase
 
     /**
      * Tests that Zend_Uri::setConfig() allows Zend_Config
-     * @doesNotPerformAssertions
-     * @group ZF-5578
      */
+    #[DoesNotPerformAssertions]
+    #[Group('ZF-5578')]
     public function testSetConfigWithArray()
     {
         Zend_Uri::setConfig(array('allow_unwise' => true));
@@ -94,9 +96,9 @@ class Zend_UriTest extends PHPUnit\Framework\TestCase
 
     /**
      * Tests that Zend_Uri::setConfig() allows Array
-     * @doesNotPerformAssertions
-     * @group ZF-5578
      */
+    #[DoesNotPerformAssertions]
+    #[Group('ZF-5578')]
     public function testSetConfigWithZendConfig()
     {
         Zend_Uri::setConfig(new Zend_Config(array('allow_unwise' => true)));
@@ -106,8 +108,8 @@ class Zend_UriTest extends PHPUnit\Framework\TestCase
      * Tests that Zend_Uri::setConfig() throws Zend_Uri_Exception if no array
      * nor Zend_Config is given as first parameter
      *
-     * @group ZF-5578
      */
+    #[Group('ZF-5578')]
     public function testSetConfigInvalid()
     {
         $this->expectException(\Zend_Uri_Exception::class);
@@ -120,8 +122,8 @@ class Zend_UriTest extends PHPUnit\Framework\TestCase
      * method an empty string is returned and a Warning is triggered, instead
      * of a Fatal Error being triggered.
      *
-     * @group ZF-10405
      */
+    #[Group('ZF-10405')]
     public function testToStringRaisesWarningWhenExceptionCaught()
     {
         $uri = Zend_Uri::factory('http://example.com', 'Zend_Uri_ExceptionCausing');
@@ -140,8 +142,8 @@ class Zend_UriTest extends PHPUnit\Framework\TestCase
     /**
      * Error handler for testExceptionThrownInToString()
      *
-     * @group ZF-10405
      */
+    #[Group('ZF-10405')]
     public function handleErrors($errno, $errstr, $errfile = '', $errline = 0, array $errcontext = array())
     {
         $this->error = $errstr;

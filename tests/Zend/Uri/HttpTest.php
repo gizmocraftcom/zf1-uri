@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,8 +28,8 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Uri
  */
+#[Group('Zend_Uri')]
 class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
 {
     public function setup(): void
@@ -71,9 +72,9 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
      * Make sure an exception is thrown when trying to use fromString() with a
      * non-HTTP scheme
      *
-     * @group ZF-4395
      *
      */
+    #[Group('ZF-4395')]
     public function testFromStringInvalidScheme()
     {
         $this->expectException(\Zend_Uri_Exception::class);
@@ -197,9 +198,9 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
      * Test that setQuery() can handle unencoded query parameters (as other
      * browsers do), ZF-1934
      *
-     * @group ZF-1934
      * @return void
      */
+    #[Group('ZF-1934')]
     public function testUnencodedQueryParameters()
     {
         $uri = Zend_Uri::factory('http://foo.com/bar');
@@ -264,9 +265,9 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
     /**
      * Test that an extremely long URI does not break things up
      *
-     * @group ZF-3712
-     * @group ZF-7840
      */
+    #[Group('ZF-3712')]
+    #[Group('ZF-7840')]
     public function testVeryLongUriZF3712()
     {
         if (!defined('TESTS_ZEND_URI_CRASH_TEST_ENABLED') || constant('TESTS_ZEND_URI_CRASH_TEST_ENABLED') == false) {
@@ -380,9 +381,7 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
         $uri->setHost($host);
     }
 
-    /**
-     * @group ZF-1480
-     */
+    #[Group('ZF-1480')]
     public function testGetQueryAsArrayReturnsCorrectArray()
     {
         $uri = Zend_Uri_Http::fromString('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
@@ -393,9 +392,7 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
         ), $uri->getQueryAsArray());
     }
 
-    /**
-     * @group ZF-1480
-     */
+    #[Group('ZF-1480')]
     public function testAddReplaceQueryParametersModifiesQueryAndReturnsOldQuery()
     {
         $uri = Zend_Uri_Http::fromString('http://example.com/foo/?a=1&b=2&c=3');
@@ -412,9 +409,7 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('a=1&b=4&c=3&d=-1', $uri->getQuery());
     }
 
-    /**
-     * @group ZF-1480
-     */
+    #[Group('ZF-1480')]
     public function testRemoveQueryParametersModifiesQueryAndReturnsOldQuery()
     {
         $uri = Zend_Uri_Http::fromString('http://example.com/foo/?a=1&b=2&c=3&d=4');
@@ -427,9 +422,9 @@ class Zend_Uri_HttpTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * @group ZF-11188
      * @see http://www.ietf.org/rfc/rfc2732.txt
      */
+    #[Group('ZF-11188')]
     public function testParserSupportsLiteralIpv6AddressesInUri()
     {
         $this->assertTrue(Zend_Uri_Http::fromString('http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html')->valid());
